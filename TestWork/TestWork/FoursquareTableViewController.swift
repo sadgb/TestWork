@@ -10,34 +10,97 @@ import UIKit
 import CoreLocation
 import Alamofire
 
+
 var tableData: Array<AnyObject> = []
 let NotificationKey = "bednarzh.specialNotificationKey"
 var jsonArray = Array<String>()
+var sidebarIsOpen: Bool?
+
+protocol FoursquareTableViewControllerDelegate{
+    func toggleLeftPanel()
+    func collapseSidePanels()
+}
 
 
 
-class FoursquareTableViewController: UITableViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
+class FoursquareTableViewController: UITableViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, LeftViewControllerDelegate {
     
+    @IBOutlet var mainView: UITableView!
     let locationManager = CLLocationManager()
     let token = "RCUZDDM4FF2IPQHBHQ51RKJMFMMY1WBM3UVXFGAVN2DICCAA"
     let versionAPI = 20150227
     var coordinate: String = ""
+    var delegate: FoursquareTableViewControllerDelegate? //
+
+    
+    
+    
     override func viewWillAppear(animated: Bool) {
-       
-    }
+        super.viewWillAppear(true)
+        
+        var contentOffset: CGPoint = self.tableView.contentOffset
+        contentOffset.y += CGRectGetHeight(self.tableView.tableHeaderView!.frame)
+        self.tableView.contentOffset = contentOffset; // Search as headerView
+            }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        tableData = ["Раз", "Два", "Три"]
+        
+        sidebarIsOpen = false
+        
+        //UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0., 0., 320., 44.)];
+        var searchBar: UISearchBar = UISearchBar(frame: CGRectMake(0, 0, 320, 44))
+        self.tableView.tableHeaderView = searchBar
+        
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
+        if CLLocationManager.authorizationStatus() == .NotDetermined {
+            locationManager.requestWhenInUseAuthorization()
+        }
         
         findMyNewLocation()
         
         var refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: Selector("findMyNewLocation"), forControlEvents: UIControlEvents.ValueChanged)
         self.refreshControl = refreshControl
+        
+        
+       
+
     }
+    
+    @IBAction func settings_clicked(sender: AnyObject) {
+        delegate?.toggleLeftPanel()
+    }
+
+//    @IBAction func menuButton(sender: AnyObject) {
+//        
+//        let viewWidth: CGFloat = self.mainView.frame.width
+//        let viewHeight: CGFloat = self.mainView.frame.height
+//        var x: CGFloat = sidebarIsOpen! ? 0 : viewWidth * 0.73
+//        println(viewWidth)
+//        
+//        UIView.animateKeyframesWithDuration(0.7, delay: 0, options: nil, animations: {
+//            self.view.frame = CGRect(x: x, y: 0, width: viewWidth, height: viewHeight)
+//            }, completion:  { _ in
+//                sidebarIsOpen = !(sidebarIsOpen!)
+//        })
+//    }
+//    
+//    
+//    @IBAction func swipeHappend(recognizer : UISwipeGestureRecognizer) {
+//        
+//        let viewWidth: CGFloat = self.mainView.frame.width
+//        let viewHeight: CGFloat = self.mainView.frame.height
+//        var x: CGFloat = (recognizer.direction == .Left) ? 0 : viewWidth * 0.73
+//        
+//        UIView.animateWithDuration(0.7, animations: {
+//            self.view.frame = CGRect(x:x, y:0, width: viewWidth, height: viewHeight)
+//            }, completion: { _ in
+//                sidebarIsOpen = (recognizer.direction == .Left) ? false : true
+//        })
+//        
+//    }
     
     func findMyNewLocation(){
         println("Обновление местоположения")
@@ -62,7 +125,7 @@ class FoursquareTableViewController: UITableViewController, CLLocationManagerDel
                         println("Success: (url)")
                         
                         for var i = 0; i < 19 ;i++ {
-                          jsonArray.insert((JSON(json!)["response"]["venues"][i]["name"].string!),atIndex: i)
+                          jsonArray.insert((JSON(json!)["response"]["venues"][i]["name"].string)!,atIndex: i)
                         //var json2 = JSON(json)["name"]
                         //let name = json["name"]
                         }
@@ -107,50 +170,6 @@ class FoursquareTableViewController: UITableViewController, CLLocationManagerDel
     }
     
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         CLGeocoder().reverseGeocodeLocation(manager.location, completionHandler: {(placemarks, error)->Void in
