@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import Alamofire
+import CoreData
 
 
 var tableData: Array<AnyObject> = []
@@ -21,8 +22,6 @@ protocol FoursquareTableViewControllerDelegate{
     func collapseSidePanels()
 }
 
-
-
 class FoursquareTableViewController: UITableViewController, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource, LeftViewControllerDelegate {
     
     @IBOutlet var mainView: UITableView!
@@ -33,26 +32,25 @@ class FoursquareTableViewController: UITableViewController, CLLocationManagerDel
     var delegate: FoursquareTableViewControllerDelegate? //
 
     
-    
-    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         
         var contentOffset: CGPoint = self.tableView.contentOffset
         contentOffset.y += CGRectGetHeight(self.tableView.tableHeaderView!.frame)
         self.tableView.contentOffset = contentOffset; // Search as headerView
-            }
+        
+
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         sidebarIsOpen = false
         
-        //UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0., 0., 320., 44.)];
         var searchBar: UISearchBar = UISearchBar(frame: CGRectMake(0, 0, 320, 44))
         self.tableView.tableHeaderView = searchBar
         
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        //self.tableView.registerClass(FoursquareTableViewCell.self, forCellReuseIdentifier: "cell")
         
         if CLLocationManager.authorizationStatus() == .NotDetermined {
             locationManager.requestWhenInUseAuthorization()
@@ -63,44 +61,13 @@ class FoursquareTableViewController: UITableViewController, CLLocationManagerDel
         var refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: Selector("findMyNewLocation"), forControlEvents: UIControlEvents.ValueChanged)
         self.refreshControl = refreshControl
-        
-        
-       
-
+    
     }
     
     @IBAction func settings_clicked(sender: AnyObject) {
         delegate?.toggleLeftPanel()
     }
 
-//    @IBAction func menuButton(sender: AnyObject) {
-//        
-//        let viewWidth: CGFloat = self.mainView.frame.width
-//        let viewHeight: CGFloat = self.mainView.frame.height
-//        var x: CGFloat = sidebarIsOpen! ? 0 : viewWidth * 0.73
-//        println(viewWidth)
-//        
-//        UIView.animateKeyframesWithDuration(0.7, delay: 0, options: nil, animations: {
-//            self.view.frame = CGRect(x: x, y: 0, width: viewWidth, height: viewHeight)
-//            }, completion:  { _ in
-//                sidebarIsOpen = !(sidebarIsOpen!)
-//        })
-//    }
-//    
-//    
-//    @IBAction func swipeHappend(recognizer : UISwipeGestureRecognizer) {
-//        
-//        let viewWidth: CGFloat = self.mainView.frame.width
-//        let viewHeight: CGFloat = self.mainView.frame.height
-//        var x: CGFloat = (recognizer.direction == .Left) ? 0 : viewWidth * 0.73
-//        
-//        UIView.animateWithDuration(0.7, animations: {
-//            self.view.frame = CGRect(x:x, y:0, width: viewWidth, height: viewHeight)
-//            }, completion: { _ in
-//                sidebarIsOpen = (recognizer.direction == .Left) ? false : true
-//        })
-//        
-//    }
     
     func findMyNewLocation(){
         println("Обновление местоположения")
@@ -128,8 +95,12 @@ class FoursquareTableViewController: UITableViewController, CLLocationManagerDel
                           jsonArray.insert((JSON(json!)["response"]["venues"][i]["name"].string)!,atIndex: i)
                         //var json2 = JSON(json)["name"]
                         //let name = json["name"]
+                            
                         }
+
+
                         self.tableView.reloadData()
+                        
 
                         println(jsonArray)
 
@@ -162,12 +133,18 @@ class FoursquareTableViewController: UITableViewController, CLLocationManagerDel
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
 
-        cell.textLabel?.text = jsonArray[indexPath.row]
+        let  cell:FoursquareTableViewCell! = tableView.dequeueReusableCellWithIdentifier("FoursqareCell", forIndexPath: indexPath) as? FoursquareTableViewCell
+        
+        cell.placesNameLabel?.text = jsonArray[indexPath.row]
+        cell.favouriteButton.tag = indexPath.row //
+        println(cell.favouriteButton.tag)
 
+    
         return cell
     }
+    
+
     
 
     

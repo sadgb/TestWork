@@ -1,13 +1,27 @@
 PODS:
   - Alamofire (1.1.4)
+  - SugarRecord/Core (1.0.7)
+  - SugarRecord/CoreData (1.0.7):
+    - SugarRecord/Core
   - SwiftyJSON (2.1.3)
 
 DEPENDENCIES:
   - Alamofire (~> 1.1)
+  - SugarRecord/CoreData (from `https://github.com/SugarRecord/SugarRecord.git`)
   - SwiftyJSON (= 2.1.3)
+
+EXTERNAL SOURCES:
+  SugarRecord:
+    :git: https://github.com/SugarRecord/SugarRecord.git
+
+CHECKOUT OPTIONS:
+  SugarRecord:
+    :commit: 8e7e44dd9aa6a426b7f2878b1b382112a857bb56
+    :git: https://github.com/SugarRecord/SugarRecord.git
 
 SPEC CHECKSUMS:
   Alamofire: 524225da382071ee3e6d0badd0ee4b4dc36740de
+  SugarRecord: 9d55ce666e8161eacdc95c996173eb53eb6d3683
   SwiftyJSON: 48be7490a3989a58a3f511cd54167f0a2b466e76
 
 COCOAPODS: 0.36.0.rc.1

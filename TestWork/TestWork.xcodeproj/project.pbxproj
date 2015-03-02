@@ -16,6 +16,7 @@
 		5775354B1A9FA8DF00967E62 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5775354A1A9FA8DF00967E62 /* CoreLocation.framework */; };
 		5775DC221AA0C2B90086BF40 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5775DC211AA0C2B90086BF40 /* SwiftyJSON.swift */; };
 		57BA962B1AA0A08C0083F0F2 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57BA962A1AA0A08C0083F0F2 /* Alamofire.framework */; };
+		57E46E3C1AA35794005B59E9 /* FoursquareTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E46E3B1AA35794005B59E9 /* FoursquareTableViewCell.swift */; };
 		57F34E0C1AA22EE600112242 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F34E0B1AA22EE600112242 /* LeftViewController.swift */; };
 		57F34E101AA23A3A00112242 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F34E0F1AA23A3A00112242 /* MenuManager.swift */; };
 		57F67FCB1AA07EB600860747 /* FoursquareTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F67FCA1AA07EB600860747 /* FoursquareTableViewController.swift */; };
@@ -62,6 +63,7 @@
 		5775354A1A9FA8DF00967E62 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5775DC211AA0C2B90086BF40 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		57BA962A1AA0A08C0083F0F2 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/../build/Debug-iphoneos/Pods/Alamofire.framework"; sourceTree = "<group>"; };
+		57E46E3B1AA35794005B59E9 /* FoursquareTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoursquareTableViewCell.swift; sourceTree = "<group>"; };
 		57F34E0B1AA22EE600112242 /* LeftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
 		57F34E0F1AA23A3A00112242 /* MenuManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
 		57F67FCA1AA07EB600860747 /* FoursquareTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoursquareTableViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				577535121A9F76F000967E62 /* AppDelegate.swift */,
 				57F34E0B1AA22EE600112242 /* LeftViewController.swift */,
 				57F67FCA1AA07EB600860747 /* FoursquareTableViewController.swift */,
+				57E46E3B1AA35794005B59E9 /* FoursquareTableViewCell.swift */,
 				57F34E0F1AA23A3A00112242 /* MenuManager.swift */,
 				577535191A9F76F000967E62 /* Main.storyboard */,
 				5775351C1A9F76F000967E62 /* Images.xcassets */,
@@ -321,6 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57E46E3C1AA35794005B59E9 /* FoursquareTableViewCell.swift in Sources */,
 				577535161A9F76F000967E62 /* TestWork.xcdatamodeld in Sources */,
 				57F67FCB1AA07EB600860747 /* FoursquareTableViewController.swift in Sources */,
 				57F34E101AA23A3A00112242 /* MenuManager.swift in Sources */,

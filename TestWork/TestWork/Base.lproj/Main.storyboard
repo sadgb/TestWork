@@ -8,16 +8,40 @@
         <scene sceneID="GGz-rz-miq">
             <objects>
                 <tableViewController storyboardIdentifier="FoursquareTableViewController" id="Uub-eQ-jOU" customClass="FoursquareTableViewController" customModule="TestWork" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="24" sectionFooterHeight="22" id="38k-lQ-QAC">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="48" sectionHeaderHeight="24" sectionFooterHeight="22" id="38k-lQ-QAC">
                         <rect key="frame" x="0.0" y="44" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="rjn-JS-E45">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FoursqareCell" rowHeight="48" id="rjn-JS-E45" customClass="FoursquareTableViewCell" customModule="TestWork" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rjn-JS-E45" id="u1C-ua-tq4">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OuP-GJ-oFF">
+                                            <rect key="frame" x="14" y="10" width="269" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yxI-JC-feH">
+                                            <rect key="frame" x="302" y="8" width="28" height="28"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="StarIcon">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="selected" image="StarIconSelected"/>
+                                            <connections>
+                                                <action selector="favouriteButtonPressed:" destination="rjn-JS-E45" eventType="touchUpInside" id="cPu-97-IZO"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="favouriteButton" destination="yxI-JC-feH" id="UpE-pE-W48"/>
+                                    <outlet property="placesNameLabel" destination="OuP-GJ-oFF" id="pQW-w6-Bl6"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -27,7 +51,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="c0M-fg-s5N">
-                        <barButtonItem key="leftBarButtonItem" title="Меню" id="8Ce-vp-EEw">
+                        <barButtonItem key="leftBarButtonItem" image="MenuIcon" id="8Ce-vp-EEw">
                             <connections>
                                 <action selector="settings_clicked:" destination="Uub-eQ-jOU" id="dkT-yd-WTM"/>
                             </connections>
@@ -66,28 +90,43 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="TDd-Eq-wHR">
-                                <rect key="frame" x="0.0" y="206" width="414" height="530"/>
+                                <rect key="frame" x="0.0" y="206" width="352" height="530"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.15920908750000001" green="0.61969077589999999" blue="0.73128736019999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ITk-54-tTE">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="favoritePlaceCell" textLabel="lq3-wz-gzJ" style="IBUITableViewCellStyleDefault" id="ITk-54-tTE">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ITk-54-tTE" id="fFC-la-9UL">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lq3-wz-gzJ">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="vsa-gi-xoF" id="ZQG-Hi-25V"/>
+                                    <outlet property="delegate" destination="vsa-gi-xoF" id="V3h-C4-EJ9"/>
+                                </connections>
                             </tableView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="5oT-2T-ZtW">
-                                <rect key="frame" x="133" y="47" width="148" height="128"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Foursquare_New_Logo" id="5oT-2T-ZtW">
+                                <rect key="frame" x="102" y="34" width="148" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.13725490200000001" green="0.59999999999999998" blue="0.70196078429999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.13725490196078433" green="0.59999999999999998" blue="0.70196078431372544" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="favoritePlacesTableView" destination="TDd-Eq-wHR" id="Y22-eX-7KD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hqI-IA-RJH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -113,6 +152,12 @@
             <point key="canvasLocation" x="5770" y="811"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Foursquare_New_Logo" width="534" height="534"/>
+        <image name="MenuIcon" width="32" height="32"/>
+        <image name="StarIcon" width="32" height="32"/>
+        <image name="StarIconSelected" width="32" height="32"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
