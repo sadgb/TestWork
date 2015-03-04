@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Star@1x Selected.png"
+      "filename" : "StarSelected@1x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "Star@2x Selected.png"
+      "filename" : "StarSelected@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "Star-100 Selected.png"
+      "filename" : "StarSelected@3x.png"
     }
   ],
   "info" : {

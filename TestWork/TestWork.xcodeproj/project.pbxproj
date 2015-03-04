@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5718EA7F1AA772E70076FB6C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5718EA7E1AA772E70076FB6C /* Images.xcassets */; };
 		577535131A9F76F000967E62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577535121A9F76F000967E62 /* AppDelegate.swift */; };
 		577535161A9F76F000967E62 /* TestWork.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 577535141A9F76F000967E62 /* TestWork.xcdatamodeld */; };
 		5775351B1A9F76F000967E62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 577535191A9F76F000967E62 /* Main.storyboard */; };
-		5775351D1A9F76F000967E62 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5775351C1A9F76F000967E62 /* Images.xcassets */; };
 		577535201A9F76F000967E62 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5775351E1A9F76F000967E62 /* LaunchScreen.xib */; };
 		5775352C1A9F76F100967E62 /* TestWorkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5775352B1A9F76F100967E62 /* TestWorkTests.swift */; };
 		5775354B1A9FA8DF00967E62 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5775354A1A9FA8DF00967E62 /* CoreLocation.framework */; };
@@ -50,12 +50,12 @@
 		1E0E934A26778218B53611AE /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D706387192BC576D322D914 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		474DCB4BEA5E257D88655AA9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		5718EA7E1AA772E70076FB6C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5775350D1A9F76F000967E62 /* TestWork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestWork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		577535111A9F76F000967E62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		577535121A9F76F000967E62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		577535151A9F76F000967E62 /* TestWork.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestWork.xcdatamodel; sourceTree = "<group>"; };
 		5775351A1A9F76F000967E62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5775351C1A9F76F000967E62 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		5775351F1A9F76F000967E62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		577535251A9F76F000967E62 /* TestWorkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestWorkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5775352A1A9F76F100967E62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -130,9 +130,9 @@
 				57E46E3B1AA35794005B59E9 /* FoursquareTableViewCell.swift */,
 				57F34E0F1AA23A3A00112242 /* MenuManager.swift */,
 				577535191A9F76F000967E62 /* Main.storyboard */,
-				5775351C1A9F76F000967E62 /* Images.xcassets */,
 				5775351E1A9F76F000967E62 /* LaunchScreen.xib */,
 				577535141A9F76F000967E62 /* TestWork.xcdatamodeld */,
+				5718EA7E1AA772E70076FB6C /* Images.xcassets */,
 				577535101A9F76F000967E62 /* Supporting Files */,
 			);
 			path = TestWork;
@@ -256,9 +256,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5718EA7F1AA772E70076FB6C /* Images.xcassets in Resources */,
 				5775351B1A9F76F000967E62 /* Main.storyboard in Resources */,
 				577535201A9F76F000967E62 /* LaunchScreen.xib in Resources */,
-				5775351D1A9F76F000967E62 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +461,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods",
 				);
 				INFOPLIST_FILE = TestWork/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -478,6 +479,7 @@
 					"$(PROJECT_DIR)/build/Debug-iphoneos/Pods",
 				);
 				INFOPLIST_FILE = TestWork/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

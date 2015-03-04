@@ -12,6 +12,14 @@
                         <rect key="frame" x="0.0" y="44" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="MhV-2J-Mfk">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="Uub-eQ-jOU" id="8Vg-N9-TLb"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FoursqareCell" rowHeight="48" id="rjn-JS-E45" customClass="FoursquareTableViewCell" customModule="TestWork" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -26,12 +34,12 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yxI-JC-feH">
-                                            <rect key="frame" x="302" y="8" width="28" height="28"/>
+                                            <rect key="frame" x="362" y="8" width="28" height="28"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="StarIcon">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
-                                            <state key="selected" image="StarIconSelected"/>
+                                            <state key="selected" image="StarSelected"/>
                                             <connections>
                                                 <action selector="favouriteButtonPressed:" destination="rjn-JS-E45" eventType="touchUpInside" id="cPu-97-IZO"/>
                                             </connections>
@@ -64,7 +72,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
                     <connections>
+                        <outlet property="SearchBar" destination="MhV-2J-Mfk" id="pys-9v-OTJ"/>
                         <outlet property="mainView" destination="38k-lQ-QAC" id="tTk-UL-FuU"/>
+                        <outlet property="searchBar" destination="MhV-2J-Mfk" id="g9K-dN-wfh"/>
                         <outlet property="searchDisplayController" destination="hsm-Or-WPd" id="Cc5-I0-9d0"/>
                         <outlet property="view" destination="38k-lQ-QAC" id="Nao-yN-NQK"/>
                     </connections>
@@ -90,7 +100,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="TDd-Eq-wHR">
-                                <rect key="frame" x="0.0" y="206" width="352" height="530"/>
+                                <rect key="frame" x="0.0" y="206" width="356" height="530"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.15920908750000001" green="0.61969077589999999" blue="0.73128736019999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -115,8 +125,8 @@
                                     <outlet property="delegate" destination="vsa-gi-xoF" id="V3h-C4-EJ9"/>
                                 </connections>
                             </tableView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Foursquare_New_Logo" id="5oT-2T-ZtW">
-                                <rect key="frame" x="102" y="34" width="148" height="128"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foursquareLogo" id="5oT-2T-ZtW">
+                                <rect key="frame" x="112" y="44" width="128" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -126,6 +136,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="favoritePlacesTableView" destination="TDd-Eq-wHR" id="Y22-eX-7KD"/>
+                        <outlet property="logoImageView" destination="5oT-2T-ZtW" id="89p-g1-dre"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hqI-IA-RJH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -153,10 +164,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Foursquare_New_Logo" width="534" height="534"/>
         <image name="MenuIcon" width="32" height="32"/>
         <image name="StarIcon" width="32" height="32"/>
-        <image name="StarIconSelected" width="32" height="32"/>
+        <image name="StarSelected" width="32" height="32"/>
+        <image name="foursquareLogo" width="250" height="227"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

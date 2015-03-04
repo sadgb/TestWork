@@ -11,68 +11,70 @@ import UIKit
 import CoreData
 
 protocol LeftViewControllerDelegate{
-    
 }
 
 class LeftViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var delegate: LeftViewControllerDelegate?
-    var favoritePlaces: Array<AnyObject> = []
 
-
+    @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var favoritePlacesTableView: UITableView!
     override func viewWillAppear(animated: Bool) {
+        
+        self.logoImageView.layer.cornerRadius = self.logoImageView.frame.size.width
+        self.logoImageView.clipsToBounds = true
+        self.logoImageView.layer.borderWidth = 3.0
+        self.logoImageView.layer.borderColor = UIColor.whiteColor().CGColor
+        self.logoImageView.layer.cornerRadius = self.logoImageView.frame.size.width / 2
+
+
 
         var AppDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         var context: NSManagedObjectContext = AppDel.managedObjectContext!
-        
         var request = NSFetchRequest(entityName: "Favorite")
         request.returnsObjectsAsFaults = false
         
         var results: NSArray = context.executeFetchRequest(request, error: nil)!
         
         if results.count > 0 {
-            for res in results{
-                favoritePlaces.append(res.valueForKey("namePlace") as String)
+            for res in results {
+                if (res.valueForKey("namePlace") != nil){
+                    let a = res.valueForKey("namePlace") as String?
+                    if (find(favoritePlaces, res.valueForKey("namePlace") as String) == nil){
+                    favoritePlaces.append(res.valueForKey("namePlace") as String)
+                    }
+                }
             }
         } else {
-            println("0 Results return...ERROR")
+            println("0 Results return")
         }
-        println(favoritePlaces)
-
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        favoritePlacesTableView.reloadData()
         
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //MARK: - Delegates and data sources
     // MARK: - Table view data source
     
      func numberOfSectionsInTableView(favoritePlacesTableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
         return 1
     }
     
-     func tableView(favoritePlacesTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+    func tableView(favoritePlacesTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favoritePlaces.count
     }
-    
     
      func tableView(favoritePlacesTableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let  cell:UITableViewCell! = favoritePlacesTableView.dequeueReusableCellWithIdentifier("favoritePlaceCell", forIndexPath: indexPath) as UITableViewCell
         
-        cell.textLabel?.text = favoritePlaces[indexPath.row] as? String
-        
-        
+        cell.textLabel?.text = favoritePlaces[indexPath.row]
         return cell
     }
     
@@ -85,43 +87,30 @@ class LeftViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var AppDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
         let context:NSManagedObjectContext = AppDel.managedObjectContext!
         switch editingStyle {
-        case .Delete:
-            // remove the deleted item from the model
-            let fetchRequest = NSFetchRequest(entityName: "Favorite")
-            fetchRequest.includesSubentities = false
-            fetchRequest.returnsObjectsAsFaults = false
+            case .Delete:
+                // remove the deleted item from the model
+                let fetchRequest = NSFetchRequest(entityName: "Favorite")
+                fetchRequest.includesSubentities = false
+                fetchRequest.returnsObjectsAsFaults = false
             
-            //fetchRequest.predicate = NSPredicate(format:"name == '\(itemName)'")
+                let items = context.executeFetchRequest(fetchRequest, error: nil)!
             
-            //var error: NSError?
-            
-            // moc is your NSManagedObjectContext here
-            let items = context.executeFetchRequest(fetchRequest, error: nil)!
-            
-            //for item in items {
+                favoritePlaces.removeAtIndex(indexPath.row)
                 context.deleteObject(items[indexPath.row] as NSManagedObject)
+                context.save(nil)
+                
+                tableView.beginUpdates()
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+                tableView.endUpdates()
             
-          //  tableView.beginUpdates()
-
-            favoritePlaces.removeAtIndex(indexPath.row)
-
-            
-            context.save(nil)
-            tableView.beginUpdates()
-
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-            tableView.endUpdates()
-            
-
         default:
             return
-            
         }
-//        var error:NSError? = nil
-//        if !context.save(&error){
-//            println(error)
-//            abort()
-        
+        var error:NSError? = nil
+        if !context.save(&error){
+            println(error)
+            abort()
+        }
     }
     
   }
