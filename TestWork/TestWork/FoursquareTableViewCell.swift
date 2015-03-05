@@ -29,31 +29,43 @@ class FoursquareTableViewCell: UITableViewCell {
         if sender.selected == false{
             sender.selected = true
             
-            
-            var AppDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+            var AppDel: AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
             var context: NSManagedObjectContext = AppDel.managedObjectContext!
-            
-            var newFavoritePlace = NSEntityDescription.insertNewObjectForEntityForName("Favorite", inManagedObjectContext: context) as NSManagedObject
-            
-            if (find(favoritePlaces, jsonArray[sender.tag]) == nil){
+            var newFavoritePlace = NSEntityDescription.insertNewObjectForEntityForName("Favorite", inManagedObjectContext: context) as! NSManagedObject
+            if isSearching == false {
+                if (find(favoritePlaces, jsonArray[sender.tag]) == nil){
                 newFavoritePlace.setValue(jsonArray[sender.tag], forKey: "namePlace")
                 context.save(nil)
+                }
+            }else{
+                if (find(favoritePlaces, searchArray[sender.tag]) == nil){
+                newFavoritePlace.setValue(searchArray[sender.tag], forKey: "namePlace")
+                context.save(nil)
+                }
             }
+            
         } else {
             sender.selected = false
-            
-            var AppDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+
+            var AppDel: AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
             var context: NSManagedObjectContext = AppDel.managedObjectContext!
             let fetchRequest = NSFetchRequest(entityName: "Favorite")
             let items = context.executeFetchRequest(fetchRequest, error: nil)!
-
-            let findPlace = find(favoritePlaces, jsonArray[sender.tag])
-
-            if (findPlace != nil){
-                favoritePlaces.removeAtIndex(findPlace!) //
-                context.deleteObject(items[findPlace!] as NSManagedObject)
-                context.save(nil)
+            if isSearching == false {
+                let findPlace = find(favoritePlaces, jsonArray[sender.tag])
+                if (findPlace != nil){
+                    favoritePlaces.removeAtIndex(findPlace!) //
+                    context.deleteObject(items[findPlace!] as! NSManagedObject)
+                    context.save(nil)
+                    }
+            }else{
+                let findPlace = find(favoritePlaces, searchArray[sender.tag])
+                if (findPlace != nil){
+                    favoritePlaces.removeAtIndex(findPlace!) //
+                    context.deleteObject(items[findPlace!] as! NSManagedObject)
+                    context.save(nil)
+                    }
                 }
+            }
         }
-    }
 }

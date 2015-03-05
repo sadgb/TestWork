@@ -28,7 +28,7 @@ class LeftViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
 
 
-        var AppDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var AppDel: AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
         var context: NSManagedObjectContext = AppDel.managedObjectContext!
         var request = NSFetchRequest(entityName: "Favorite")
         request.returnsObjectsAsFaults = false
@@ -38,9 +38,9 @@ class LeftViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if results.count > 0 {
             for res in results {
                 if (res.valueForKey("namePlace") != nil){
-                    let a = res.valueForKey("namePlace") as String?
-                    if (find(favoritePlaces, res.valueForKey("namePlace") as String) == nil){
-                    favoritePlaces.append(res.valueForKey("namePlace") as String)
+                    let a = res.valueForKey("namePlace") as! String?
+                    if (find(favoritePlaces, res.valueForKey("namePlace") as! String) == nil){
+                    favoritePlaces.append(res.valueForKey("namePlace") as! String)
                     }
                 }
             }
@@ -72,7 +72,7 @@ class LeftViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
      func tableView(favoritePlacesTableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let  cell:UITableViewCell! = favoritePlacesTableView.dequeueReusableCellWithIdentifier("favoritePlaceCell", forIndexPath: indexPath) as UITableViewCell
+        let  cell:UITableViewCell! = favoritePlacesTableView.dequeueReusableCellWithIdentifier("favoritePlaceCell", forIndexPath: indexPath) as! UITableViewCell
         
         cell.textLabel?.text = favoritePlaces[indexPath.row]
         return cell
@@ -84,7 +84,7 @@ class LeftViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
      func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        var AppDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var AppDel: AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
         let context:NSManagedObjectContext = AppDel.managedObjectContext!
         switch editingStyle {
             case .Delete:
@@ -96,7 +96,7 @@ class LeftViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let items = context.executeFetchRequest(fetchRequest, error: nil)!
             
                 favoritePlaces.removeAtIndex(indexPath.row)
-                context.deleteObject(items[indexPath.row] as NSManagedObject)
+                context.deleteObject(items[indexPath.row] as! NSManagedObject)
                 context.save(nil)
                 
                 tableView.beginUpdates()

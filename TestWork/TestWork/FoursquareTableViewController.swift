@@ -12,8 +12,11 @@ import Alamofire
 import CoreData
 
 var jsonArray = Array<String>()
+var searchArray = Array<String>()
 var sidebarIsOpen: Bool?
 var selectedArray = Array(count: jsonArray.count, repeatedValue: false)
+var isSearching: Bool = false
+
 
 protocol FoursquareTableViewControllerDelegate{
     func toggleLeftPanel()
@@ -31,8 +34,6 @@ class FoursquareTableViewController: UITableViewController, CLLocationManagerDel
     var coordinate: String = ""
     var tableData: Array<AnyObject> = []
     var delegate: FoursquareTableViewControllerDelegate? //
-    var searchArray = Array<String>()
-    var isSearching: Bool = false
 
     override func viewWillAppear(animated: Bool) {
         
@@ -43,7 +44,7 @@ class FoursquareTableViewController: UITableViewController, CLLocationManagerDel
         contentOffset.y += CGRectGetHeight(self.tableView.tableHeaderView!.frame)
         self.tableView.contentOffset = contentOffset; // Search as headerView
         
-        var AppDel: AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        var AppDel: AppDelegate = (UIApplication.sharedApplication().delegate as! AppDelegate)
         var context: NSManagedObjectContext = AppDel.managedObjectContext!
         var request = NSFetchRequest(entityName: "Favorite")
         request.returnsObjectsAsFaults = false
@@ -52,9 +53,9 @@ class FoursquareTableViewController: UITableViewController, CLLocationManagerDel
         if results.count > 0 {
             for res in results {
                 if (res.valueForKey("namePlace") != nil){
-                    let a = res.valueForKey("namePlace") as String?
-                    if (find(favoritePlaces, res.valueForKey("namePlace") as String) == nil){
-                        favoritePlaces.append(res.valueForKey("namePlace") as String)
+                    let a = res.valueForKey("namePlace") as! String?
+                    if (find(favoritePlaces, res.valueForKey("namePlace") as! String) == nil){
+                        favoritePlaces.append(res.valueForKey("namePlace") as! String)
                     }
                 }
             }
@@ -80,6 +81,9 @@ class FoursquareTableViewController: UITableViewController, CLLocationManagerDel
         var refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: Selector("findMyNewLocation"), forControlEvents: UIControlEvents.ValueChanged)
         self.refreshControl = refreshControl
+        self.searchBar.delegate = self
+        self.tableView.delaysContentTouches = false
+
     
     }
     
@@ -116,6 +120,9 @@ class FoursquareTableViewController: UITableViewController, CLLocationManagerDel
     
     func foursquareRequestWith(coordinates:String, token: String) {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        
+        
+
         Alamofire.request(.GET, "https://api.foursquare.com/v2/venues/search", parameters: ["ll": coordinate, "oauth_token": token, "v": versionAPI])
                 .responseJSON { (req, res, json, error) in
                     if(error != nil) {
@@ -187,7 +194,6 @@ class FoursquareTableViewController: UITableViewController, CLLocationManagerDel
         return cell
     }
     // Search Controller
-    //func searchBar(SearchBar:UISearc
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String){
         if searchBar.text.isEmpty{
@@ -218,7 +224,7 @@ class FoursquareTableViewController: UITableViewController, CLLocationManagerDel
             }
             
             if placemarks.count > 0 {
-                let pm = placemarks[0] as CLPlacemark
+                let pm = placemarks[0] as! CLPlacemark
                 self.displayLocationInfo(pm)
             } else {
                 println("Problem with the data received from geocoder")
@@ -243,6 +249,12 @@ class FoursquareTableViewController: UITableViewController, CLLocationManagerDel
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
         println("Error while updating location " + error.localizedDescription)
     }
+    
+    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        tableView.endEditing(true)
+    }
+    
+
 
 
 }
